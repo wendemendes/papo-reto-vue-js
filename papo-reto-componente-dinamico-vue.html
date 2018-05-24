@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Papo reto componente dinamico Vue js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+  </head>
+  <body>
+      <script src="https://unpkg.com/vue"></script>
+
+    <div id="app">
+    
+          <br/>
+          Escolha o que deseja mostrar :
+          
+          <select v-model="mostrarComponente">
+              <option value="componente-linguagens">Linguagens</option>
+              <option value="componente-comida">Comida</option>
+          </select>
+          <br><br>
+
+          <component :is="mostrarComponente"></component>
+
+      
+    </div>
+
+    <template id="linguagens">
+        <div>
+            <h2>{{titulo}}</h2>
+
+            <ul class="list-group">
+              <li class="list-group-item" v-for="(linguagem, index) in linguagens" :key="linguagem.name">{{linguagem.name}}</li>
+            </ul>
+        <div>
+    </template>
+
+    <template id="comidas">
+        <div>
+            <h2>{{titulo}}</h2>
+
+            <ul class="list-group">
+              <li class="list-group-item" v-for="(comida, index) in comidas" :key="comida.name">{{comida.name}}</li>
+            </ul>
+        <div>
+    </template>
+
+<script>
+  Vue.component('componente-linguagens', {
+    template: "#linguagens",
+        data(){
+          return {
+            titulo: 'Linguagens',
+            linguagens: [
+               {name: 'Scala'},
+                {name: 'Ruby'},
+                 {name: 'Java'}
+               ]
+          }
+        },
+  });
+
+  Vue.component('componente-comida', {
+    template: "#comidas",
+        data(){
+          return {
+            titulo: 'Comidas',
+            comidas: [
+               {name: 'Arroz'},
+                {name: 'Feijão'},
+                 {name: 'Batata'}
+               ]
+          }
+        },
+  });
+      var app = new Vue({
+          el: "#app",
+          data: {
+            titulo: "Nomes",
+            users: [
+              {name: 'Joao'},
+              {name: 'maria'},
+              {name: 'Vasco'},
+            ],
+            mostrarComponente: 'componente-comida'
+          }
+       });
+</script>
+
+
+
+  </body>
+</html>
